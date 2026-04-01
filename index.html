@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Cheatsheet — RU | EN</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181a20;
+    --surface2: #1e2028;
+    --border: #2a2d38;
+    --text: #e0e0e6;
+    --text-dim: #8b8fa3;
+    --accent-ru: #5b8def;
+    --accent-en: #f0883e;
+    --code-bg: #13141a;
+    --green: #3fb950;
+    --red: #f85149;
+    --tag-bg: #262830;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 14px;
+  }
+  .header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--accent-ru), var(--accent-en));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lang-labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px 24px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .lang-label {
+    padding: 8px 16px 10px;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .lang-label.ru { color: var(--accent-ru); border-bottom: 2px solid var(--accent-ru); }
+  .lang-label.en { color: var(--accent-en); border-bottom: 2px solid var(--accent-en); }
+  .section-title {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px 12px;
+  }
+  .section-title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title h2 .num {
+    background: var(--tag-bg);
+    color: var(--text-dim);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .col {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .col.ru { border-right: 1px solid var(--border); }
+  .col h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .col.ru h3 { border-left: 3px solid var(--accent-ru); padding-left: 10px; }
+  .col.en h3 { border-left: 3px solid var(--accent-en); padding-left: 10px; }
+  .col p { margin-bottom: 10px; }
+  .col strong { font-weight: 600; color: #fff; }
+  .col ul, .col ol { padding-left: 20px; margin-bottom: 10px; }
+  .col li { margin-bottom: 4px; }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: #c9d1d9;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    margin: 10px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #c9d1d9;
+  }
+  .table-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--tag-bg);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    color: #fff;
+  }
+  td { padding: 7px 10px; border: 1px solid var(--border); }
+  .good { color: var(--green); }
+  .bad { color: var(--red); }
+  .tip {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent-en);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .tip strong { color: var(--accent-en); }
+  .divider { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+  .divider hr { border: none; border-top: 2px solid var(--border); margin: 8px 0; }
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-dim);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  @media (max-width: 800px) {
+    .row, .lang-labels { grid-template-columns: 1fr; }
+    .col.ru { border-right: none; }
+    .lang-labels { display: none; }
+    .col.ru::before { content: '🇷🇺 RU'; display: block; font-size: 11px; font-weight: 700; color: var(--accent-ru); margin-bottom: 6px; letter-spacing: 1px; }
+    .col.en::before { content: '🇬🇧 EN'; display: block; font-size: 11px; font-weight: 700; color: var(--accent-en); margin-bottom: 6px; letter-spacing: 1px; }
+  }
+  @media print {
+    body { background: #fff; color: #111; font-size: 11px; }
+    .header h1 { -webkit-text-fill-color: #333; }
+    pre { background: #f5f5f5; border-color: #ddd; }
+    .col.ru { border-right: 1px solid #ddd; }
+    .lang-labels { position: static; background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Шпаргалка к интервью / Interview Cheatsheet</h1>
+</div>
+
+<div class="lang-labels">
+  <div class="lang-label ru">Русский</div>
+  <div class="lang-label en">English</div>
+</div>
+
+<!-- ===== 1. NODE.JS / BACKEND ===== -->
+
+<div class="section-title"><h2><span class="num">01</span> Node.js / Backend</h2></div>
+
+<!-- package.json -->
+<div class="row">
+  <div class="col ru">
+    <h3>package.json</h3>
+    <p>Манифест проекта. Три ключевые роли: <strong>зависимости</strong> (<code>dependencies</code> — прод, <code>devDependencies</code> — только разработка), <strong>скрипты</strong> (<code>scripts</code> — точки входа: <code>start</code>, <code>build</code>, <code>test</code>, <code>lint</code>), <strong>метаданные</strong> (версия, имя, <code>engines</code> — минимальная версия Node).</p>
+    <p><code>package-lock.json</code> — фиксирует точные версии всего дерева зависимостей для воспроизводимых сборок.</p>
+  </div>
+  <div class="col en">
+    <h3>package.json</h3>
+    <p>Project manifest. Three key roles: <strong>dependencies</strong> (<code>dependencies</code> — prod, <code>devDependencies</code> — dev only), <strong>scripts</strong> (<code>scripts</code> — entry points: <code>start</code>, <code>build</code>, <code>test</code>, <code>lint</code>), <strong>metadata</strong> (version, name, <code>engines</code> — minimum Node version).</p>
+    <p><code>package-lock.json</code> — locks exact versions of the entire dependency tree for reproducible builds.</p>
+  </div>
+</div>
+
+<!-- Event Loop -->
+<div class="row">
+  <div class="col ru">
+    <h3>Event Loop</h3>
+    <p>Event loop — механизм, позволяющий однопоточному Node.js делать неблокирующий I/O.</p>
+    <p><strong>Алгоритм работы Event Loop:</strong></p>
+    <ol>
+      <li>Берёт и выполняет весь синхронный код из Call Stack</li>
+      <li>Проверяет очередь микротасков — если есть, выполняет <strong>все</strong> до единого</li>
+      <li>Берёт <strong>одну</strong> задачу из очереди макротасков и выполняет</li>
+      <li>Возвращается к шагу 2 (снова проверяет микротаски)</li>
+      <li>Цикл повторяется пока есть задачи</li>
+    </ol>
+  </div>
+  <div class="col en">
+    <h3>Event Loop</h3>
+    <p>Event loop — a mechanism that allows single-threaded Node.js to perform non-blocking I/O.</p>
+    <p><strong>Event Loop algorithm:</strong></p>
+    <ol>
+      <li>Takes and executes all synchronous code from the Call Stack</li>
+      <li>Checks the microtask queue — if any, executes <strong>all</strong> of them</li>
+      <li>Takes <strong>one</strong> task from the macrotask queue and executes it</li>
+      <li>Returns to step 2 (checks microtasks again)</li>
+      <li>The cycle repeats while there are tasks</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Порядок выполнения кода -->
+<div class="row">
+  <div class="col ru">
+    <h3>Порядок выполнения кода</h3>
+    <p><strong>1) Синхронный код (Call Stack)</strong> — выполняется немедленно</p>
+    <pre>console.log('Hi');
+let a = 5 + 1;
+function foo() {}</pre>
+    <p><strong>2) Microtasks</strong> — выполняются сразу после синхронного кода (и после каждого макротаска)</p>
+    <ul>
+      <li><code>process.nextTick()</code> — высший приоритет среди микро</li>
+      <li><code>Promise.then / catch / finally</code></li>
+      <li><code>queueMicrotask()</code></li>
+    </ul>
+    <p><strong>3) Macrotasks</strong> — берутся по одной, между ними всегда проверяются микротаски</p>
+    <ul>
+      <li><code>setTimeout / setInterval</code></li>
+      <li><code>setImmediate</code> (в Node.js)</li>
+      <li>I/O операции (файл, сеть)</li>
+      <li>UI рендеринг</li>
+    </ul>
+  </div>
+  <div class="col en">
+    <h3>Code execution order</h3>
+    <p><strong>1) Synchronous code (Call Stack)</strong> — executed immediately</p>
+    <pre>console.log('Hi');
+let a = 5 + 1;
+function foo() {}</pre>
+    <p><strong>2) Microtasks</strong> — executed right after synchronous code (and after each macrotask)</p>
+    <ul>
+      <li><code>process.nextTick()</code> — highest priority among microtasks</li>
+      <li><code>Promise.then / catch / finally</code></li>
+      <li><code>queueMicrotask()</code></li>
+    </ul>
+    <p><strong>3) Macrotasks</strong> — taken one at a time, microtasks are always checked between them</p>
+    <ul>
+      <li><code>setTimeout / setInterval</code></li>
+      <li><code>setImmediate</code> (in Node.js)</li>
+      <li>I/O operations (file, network)</li>
+      <li>UI rendering</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Нюансы Promise -->
+<div class="row">
+  <div class="col ru">
+    <h3>Нюансы Promise</h3>
+    <p><strong>Нюанс с Promise.resolve():</strong><br>
+    <code>Promise.resolve()</code> создаёт уже выполненный промис, но <code>.then</code> колбэк всё равно уходит в очередь микротасков — он не выполнится синхронно.</p>
+    <pre>Promise.resolve().then(() =&gt; console.log('micro'));
+// console.log('micro') — НЕ сразу, а после текущего синхронного кода</pre>
+    <p><strong>Нюанс с конструктором <code>new Promise</code>:</strong><br>
+    Колбэк внутри <code>new Promise(executor)</code> выполняется <strong>синхронно</strong>. Только <code>.then</code> уходит в микротаски.</p>
+    <pre>console.log('1');                   // sync → 1
+new Promise(resolve =&gt; {
+  console.log('2');                 // sync → 2 (executor!)
+  resolve();
+}).then(() =&gt; console.log('3'));    // micro → 4
+console.log('4');                   // sync → 3
+// Вывод: 1, 2, 4, 3</pre>
+  </div>
+  <div class="col en">
+    <h3>Promise nuances</h3>
+    <p><strong>Promise.resolve() nuance:</strong><br>
+    <code>Promise.resolve()</code> creates an already resolved promise, but the <code>.then</code> callback still goes to the microtask queue — it won't execute synchronously.</p>
+    <pre>Promise.resolve().then(() =&gt; console.log('micro'));
+// console.log('micro') — NOT immediately, but after current synchronous code</pre>
+    <p><strong><code>new Promise</code> constructor nuance:</strong><br>
+    The callback inside <code>new Promise(executor)</code> executes <strong>synchronously</strong>. Only <code>.then</code> goes to microtasks.</p>
+    <pre>console.log('1');                   // sync → 1
+new Promise(resolve =&gt; {
+  console.log('2');                 // sync → 2 (executor!)
+  resolve();
+}).then(() =&gt; console.log('3'));    // micro → 4
+console.log('4');                   // sync → 3
+// Output: 1, 2, 4, 3</pre>
+  </div>
+</div>
+
+<!-- Полный пример -->
+<div class="row">
+  <div class="col ru">
+    <h3>Полный пример</h3>
+    <pre>console.log('1');                   // sync → 1
+setTimeout(() =&gt; console.log('2'), 0);  // macro → 5
+setImmediate(() =&gt; console.log('3'));   // macro → 6
+Promise.resolve().then(() =&gt;
+  console.log('4'));                // micro → 3
+process.nextTick(() =&gt;
+  console.log('5'));                // micro (приоритет!) → 2
+console.log('6');                   // sync → 4
+// Вывод: 1, 6, 5, 4, 2, 3</pre>
+    <p><code>setTimeout(() =&gt; ..., 0)</code> — без задач выполняется последним из макро, потому что 0 ms ≠ немедленно, а «как можно скорее в фазе timers».</p>
+  </div>
+  <div class="col en">
+    <h3>Full example</h3>
+    <pre>console.log('1');                   // sync → 1
+setTimeout(() =&gt; console.log('2'), 0);  // macro → 5
+setImmediate(() =&gt; console.log('3'));   // macro → 6
+Promise.resolve().then(() =&gt;
+  console.log('4'));                // micro → 3
+process.nextTick(() =&gt;
+  console.log('5'));                // micro (priority!) → 2
+console.log('6');                   // sync → 4
+// Output: 1, 6, 5, 4, 2, 3</pre>
+    <p><code>setTimeout(() =&gt; ..., 0)</code> — with no other tasks it runs last among macros, because 0 ms ≠ immediately, but rather "as soon as possible in the timers phase".</p>
+  </div>
+</div>
+
+<!-- Асинхронность -->
+<div class="row">
+  <div class="col ru">
+    <h3>Асинхронность</h3>
+    <p><strong>Callback</strong> — функция, которую мы передаём в другую функцию как аргумент, чтобы она вызвала её позже (когда завершится операция). Это базовый механизм асинхронности в Node.js — «я закончу работу и вызову твою функцию с результатом».</p>
+    <pre>fs.readFile('data.json', (err, data) =&gt; {
+  // этот колбэк вызовется когда файл прочитан
+});</pre>
+    <p><strong>Callback hell</strong> — вложенные колбэки, нечитаемо, сложно обработать ошибки:</p>
+    <pre>getUser(id, (user) =&gt; {
+  getOrders(user, (orders) =&gt; {
+    getDetails(orders[0], (details) =&gt; { ... })
+  })
+})</pre>
+    <p><strong>Promise</strong> — объект, представляющий результат асинхронной операции, который будет доступен в будущем (или ошибку, если операция провалилась). По сути — «обещание» вернуть значение позже. Три состояния: pending (ожидание) → fulfilled (успех) / rejected (ошибка). Цепочка <code>.then()</code> линеаризует код, <code>.catch()</code> централизует обработку ошибок.</p>
+    <pre>const promise = new Promise((resolve, reject) =&gt; {
+  // асинхронная операция
+  setTimeout(() =&gt; resolve('done'), 1000);
+});
+
+promise
+  .then(result =&gt; console.log(result))  // 'done'
+  .catch(err =&gt; console.error(err));</pre>
+    <p><strong>async/await</strong> — синтаксический сахар над Promise. <code>async</code> функция всегда возвращает Promise. <code>await</code> приостанавливает выполнение функции (не потока!) до резолва.</p>
+    <pre>// Чисто, линейно, ошибки через try/catch
+async function getOrderDetails(id) {
+  const user = await getUser(id);
+  const orders = await getOrders(user);
+  return getDetails(orders[0]);
+}</pre>
+    <p><strong>Параллельность:</strong> <code>Promise.all([a(), b()])</code> — запускаем независимые задачи параллельно, а не последовательно через <code>await</code>.</p>
+  </div>
+  <div class="col en">
+    <h3>Asynchrony</h3>
+    <p><strong>Callback</strong> — a function we pass into another function as an argument so it can call it later (when the operation completes). This is the foundational async mechanism in Node.js — "I'll finish my work and call your function with the result".</p>
+    <pre>fs.readFile('data.json', (err, data) =&gt; {
+  // this callback fires when the file is read
+});</pre>
+    <p><strong>Callback hell</strong> — nested callbacks, unreadable, hard to handle errors:</p>
+    <pre>getUser(id, (user) =&gt; {
+  getOrders(user, (orders) =&gt; {
+    getDetails(orders[0], (details) =&gt; { ... })
+  })
+})</pre>
+    <p><strong>Promise</strong> — an object representing the result of an asynchronous operation that will be available in the future (or an error if the operation failed). Essentially — a "promise" to return a value later. Three states: pending (waiting) → fulfilled (success) / rejected (error). Chaining <code>.then()</code> linearizes code, <code>.catch()</code> centralizes error handling.</p>
+    <pre>const promise = new Promise((resolve, reject) =&gt; {
+  // async operation
+  setTimeout(() =&gt; resolve('done'), 1000);
+});
+
+promise
+  .then(result =&gt; console.log(result))  // 'done'
+  .catch(err =&gt; console.error(err));</pre>
+    <p><strong>async/await</strong> — syntactic sugar over Promises. An <code>async</code> function always returns a Promise. <code>await</code> pauses function execution (not the thread!) until resolution.</p>
+    <pre>// Clean, linear, errors via try/catch
+async function getOrderDetails(id) {
+  const user = await getUser(id);
+  const orders = await getOrders(user);
+  return getDetails(orders[0]);
+}</pre>
+    <p><strong>Concurrency:</strong> <code>Promise.all([a(), b()])</code> — run independent tasks in parallel instead of sequentially via <code>await</code>.</p>
+  </div>
+</div>
+
+<!-- ===== 2. REACT / FRONTEND ===== -->
+
+<div class="divider"><hr></div>
+<div class="section-title"><h2><span class="num">02</span> React / Frontend</h2></div>
+
+<!-- Компоненты -->
+<div class="row">
+  <div class="col ru">
+    <h3>Компоненты</h3>
+    <p><strong>Функциональные</strong> — стандарт. Просто функция, возвращающая JSX. Состояние и сайд-эффекты через хуки (<code>useState</code>, <code>useEffect</code>, <code>useMemo</code>...).</p>
+    <p><strong>Классовые</strong> — легаси. <code>render()</code>, lifecycle методы (<code>componentDidMount</code>, <code>shouldComponentUpdate</code>). Используются если проект старый или нужны Error Boundaries (хотя в React 19+ и это решается).</p>
+    <p>Как синьор: классы — только в legacy-коде. Новый код — только функциональные.</p>
+  </div>
+  <div class="col en">
+    <h3>Components</h3>
+    <p><strong>Functional</strong> — the standard. Just a function returning JSX. State and side effects via hooks (<code>useState</code>, <code>useEffect</code>, <code>useMemo</code>...).</p>
+    <p><strong>Class-based</strong> — legacy. <code>render()</code>, lifecycle methods (<code>componentDidMount</code>, <code>shouldComponentUpdate</code>). Used if the project is old or Error Boundaries are needed (though React 19+ addresses this too).</p>
+    <p>Senior take: classes — only in legacy code. New code — functional only.</p>
+  </div>
+</div>
+
+<!-- Props vs State -->
+<div class="row">
+  <div class="col ru">
+    <h3>Props vs State</h3>
+    <div class="table-wrap"><table>
+      <tr><th>Props</th><th>State</th></tr>
+      <tr><td>Входящие данные от родителя</td><td>Внутренние данные компонента</td></tr>
+      <tr><td><strong>Immutable</strong> для получателя</td><td><strong>Mutable</strong> через setter (<code>setState</code> / <code>setX</code>)</td></tr>
+      <tr><td>Однонаправленный поток (top-down)</td><td>Локальный, но можно «поднять» (lift state up)</td></tr>
+    </table></div>
+    <p><strong>Data flow</strong> — однонаправленный (unidirectional). Данные текут сверху вниз через props. Дочерний компонент влияет на родителя через <strong>callback-пропсы</strong> (родитель передаёт функцию, ребёнок вызывает).</p>
+    <p>Для глобального состояния: Context API (простое), Redux/Zustand (сложное).</p>
+  </div>
+  <div class="col en">
+    <h3>Props vs State</h3>
+    <div class="table-wrap"><table>
+      <tr><th>Props</th><th>State</th></tr>
+      <tr><td>Incoming data from the parent</td><td>Component's internal data</td></tr>
+      <tr><td><strong>Immutable</strong> for the receiver</td><td><strong>Mutable</strong> via setter (<code>setState</code> / <code>setX</code>)</td></tr>
+      <tr><td>Unidirectional flow (top-down)</td><td>Local, but can be "lifted up" (lift state up)</td></tr>
+    </table></div>
+    <p><strong>Data flow</strong> — unidirectional. Data flows top-down via props. A child component affects the parent through <strong>callback props</strong> (parent passes a function, child invokes it).</p>
+    <p>For global state: Context API (simple), Redux/Zustand (complex).</p>
+  </div>
+</div>
+
+<!-- Controlled vs Uncontrolled -->
+<div class="row">
+  <div class="col ru">
+    <h3>Controlled vs Uncontrolled</h3>
+    <p><strong>Controlled</strong> — React владеет значением инпута. Значение живёт в <code>state</code>, обновляется через <code>onChange</code>. Полный контроль: валидация на лету, условная логика, форматирование.</p>
+    <pre>const [email, setEmail] = useState('');
+&lt;input value={email} onChange={e =&gt; setEmail(e.target.value)} /&gt;</pre>
+    <p><strong>Uncontrolled</strong> — DOM владеет значением. Читаем через <code>ref</code> когда нужно (например, при submit). Проще для простых форм, file inputs.</p>
+    <pre>const ref = useRef();
+&lt;input ref={ref} /&gt;
+// ref.current.value при submit</pre>
+    <p>Как синьор: <strong>по умолчанию — controlled</strong>. Uncontrolled — только для file input или интеграции с non-React библиотеками.</p>
+  </div>
+  <div class="col en">
+    <h3>Controlled vs Uncontrolled</h3>
+    <p><strong>Controlled</strong> — React owns the input value. The value lives in <code>state</code>, updated via <code>onChange</code>. Full control: on-the-fly validation, conditional logic, formatting.</p>
+    <pre>const [email, setEmail] = useState('');
+&lt;input value={email} onChange={e =&gt; setEmail(e.target.value)} /&gt;</pre>
+    <p><strong>Uncontrolled</strong> — the DOM owns the value. Read via <code>ref</code> when needed (e.g., on submit). Simpler for basic forms, file inputs.</p>
+    <pre>const ref = useRef();
+&lt;input ref={ref} /&gt;
+// ref.current.value on submit</pre>
+    <p>Senior take: <strong>controlled by default</strong>. Uncontrolled — only for file inputs or integration with non-React libraries.</p>
+  </div>
+</div>
+
+<!-- ===== 3. TYPESCRIPT ===== -->
+
+<div class="divider"><hr></div>
+<div class="section-title"><h2><span class="num">03</span> TypeScript</h2></div>
+
+<!-- Способы объявления типов -->
+<div class="row">
+  <div class="col ru">
+    <h3>Способы объявления типов</h3>
+    <ul>
+      <li><code>type</code> — для union-типов, примитивов, утилит. <code>type Status = 'active' | 'inactive'</code></li>
+      <li><code>interface</code> — для объектов и классов. Поддерживает <code>extends</code> и declaration merging.</li>
+      <li><code>enum</code> — набор констант. Предпочитаю <code>as const</code> объекты вместо enum (tree-shakeable).</li>
+      <li>Generics — параметризация: <code>function get&lt;T&gt;(arr: T[]): T</code></li>
+    </ul>
+  </div>
+  <div class="col en">
+    <h3>Type declaration methods</h3>
+    <ul>
+      <li><code>type</code> — for union types, primitives, utilities. <code>type Status = 'active' | 'inactive'</code></li>
+      <li><code>interface</code> — for objects and classes. Supports <code>extends</code> and declaration merging.</li>
+      <li><code>enum</code> — a set of constants. I prefer <code>as const</code> objects instead of enums (tree-shakeable).</li>
+      <li>Generics — parameterization: <code>function get&lt;T&gt;(arr: T[]): T</code></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Почему TypeScript -->
+<div class="row">
+  <div class="col ru">
+    <h3>Почему TypeScript (не «потому что модно»)</h3>
+    <ol>
+      <li><strong>Safety</strong> — ошибки на этапе компиляции, а не в продакшене. Невозможно вызвать <code>user.nmae</code> — тайпчекер поймает.</li>
+      <li><strong>DX</strong> — автокомплит, рефакторинг с уверенностью (переименовал поле — IDE покажет все места), самодокументирующийся код.</li>
+      <li><strong>Масштабируемость</strong> — контракты между модулями/командами. Интерфейсы API-ответов, пропсов компонентов — всё типизировано, новый разработчик читает типы вместо документации.</li>
+    </ol>
+    <p>Кратко: TypeScript — это <strong>инвестиция в поддерживаемость</strong>. На маленьком проекте overhead, на большом — спасает.</p>
+  </div>
+  <div class="col en">
+    <h3>Why TypeScript (not "because it's trendy")</h3>
+    <ol>
+      <li><strong>Safety</strong> — errors caught at compile time, not in production. You can't call <code>user.nmae</code> — the type checker catches it.</li>
+      <li><strong>DX</strong> — autocomplete, confident refactoring (renamed a field — IDE shows every place), self-documenting code.</li>
+      <li><strong>Scalability</strong> — contracts between modules/teams. API response interfaces, component props — everything is typed, a new developer reads types instead of documentation.</li>
+    </ol>
+    <p>In short: TypeScript is an <strong>investment in maintainability</strong>. Overhead on a small project, a lifesaver on a large one.</p>
+  </div>
+</div>
+
+<!-- ===== 4. PYTHON ===== -->
+
+<div class="divider"><hr></div>
+<div class="section-title"><h2><span class="num">04</span> Python</h2></div>
+
+<!-- List vs Tuple -->
+<div class="row">
+  <div class="col ru">
+    <h3>List vs Tuple</h3>
+    <div class="table-wrap"><table>
+      <tr><th>List</th><th>Tuple</th></tr>
+      <tr><td><strong>Mutable</strong> — <code>append</code>, <code>pop</code>, <code>sort</code></td><td><strong>Immutable</strong> — создал и не меняешь</td></tr>
+      <tr><td>Для коллекций одинаковых элементов</td><td>Для фиксированных структур (координаты, RGB, запись из БД)</td></tr>
+      <tr><td>Нельзя как ключ словаря</td><td><strong>Можно</strong> как ключ словаря (hashable)</td></tr>
+      <tr><td>Чуть медленнее (overhead на resize)</td><td>Чуть быстрее, меньше памяти</td></tr>
+    </table></div>
+    <p><strong>Use case:</strong> кортежи — когда данные не должны меняться и это нужно гарантировать. Return из функции с несколькими значениями — тоже tuple.</p>
+    <p><strong>Практические примеры:</strong></p>
+    <pre># LIST — коллекция, которая растёт/меняется
+users = []
+users.append({'name': 'Alex', 'role': 'admin'})
+users.append({'name': 'Maria', 'role': 'editor'})
+filtered = [u for u in users if u['role'] == 'admin']
+
+# LIST — результаты из БД, которые фильтруем/сортируем
+orders = Order.objects.filter(status='active')
+order_ids = [o.id for o in orders]
+
+# TUPLE — фиксированная структура, не должна меняться
+ALLOWED_ROLES = ('admin', 'editor', 'viewer')  # константа
+point = (53.9, 27.5)                           # координаты
+rgb = (255, 128, 0)                            # цвет
+
+# TUPLE — return нескольких значений
+def get_user_stats(user_id):
+    return (total_orders, avg_amount)  # распаковка: orders, avg = get_user_stats(1)
+
+# TUPLE — как ключ словаря (list нельзя!)
+cache = {}
+cache[(2024, 'Q3', 'sales')] = 150000</pre>
+  </div>
+  <div class="col en">
+    <h3>List vs Tuple</h3>
+    <div class="table-wrap"><table>
+      <tr><th>List</th><th>Tuple</th></tr>
+      <tr><td><strong>Mutable</strong> — <code>append</code>, <code>pop</code>, <code>sort</code></td><td><strong>Immutable</strong> — create once, never change</td></tr>
+      <tr><td>For collections of similar elements</td><td>For fixed structures (coordinates, RGB, DB record)</td></tr>
+      <tr><td>Cannot be a dict key</td><td><strong>Can</strong> be a dict key (hashable)</td></tr>
+      <tr><td>Slightly slower (resize overhead)</td><td>Slightly faster, less memory</td></tr>
+    </table></div>
+    <p><strong>Use case:</strong> tuples — when data must not change and you need to guarantee that. Returning multiple values from a function is also a tuple.</p>
+    <p><strong>Practical examples:</strong></p>
+    <pre># LIST — a collection that grows/changes
+users = []
+users.append({'name': 'Alex', 'role': 'admin'})
+users.append({'name': 'Maria', 'role': 'editor'})
+filtered = [u for u in users if u['role'] == 'admin']
+
+# LIST — DB results we filter/sort
+orders = Order.objects.filter(status='active')
+order_ids = [o.id for o in orders]
+
+# TUPLE — fixed structure, must not change
+ALLOWED_ROLES = ('admin', 'editor', 'viewer')  # constant
+point = (53.9, 27.5)                           # coordinates
+rgb = (255, 128, 0)                            # color
+
+# TUPLE — returning multiple values
+def get_user_stats(user_id):
+    return (total_orders, avg_amount)  # unpack: orders, avg = get_user_stats(1)
+
+# TUPLE — as a dict key (list can't!)
+cache = {}
+cache[(2024, 'Q3', 'sales')] = 150000</pre>
+  </div>
+</div>
+
+<!-- Iterators и Generators -->
+<div class="row">
+  <div class="col ru">
+    <h3>Iterators и Generators</h3>
+    <p><strong>Iterator</strong> — объект с методом <code>__next__()</code>. Лениво выдаёт элементы по одному. Любой <code>for</code> в Python работает через итераторы.</p>
+    <p><strong><code>__next__()</code></strong> — метод, который возвращает следующий элемент из итератора. Когда элементы заканчиваются — выбрасывает исключение <code>StopIteration</code>. Цикл <code>for</code> вызывает этот метод автоматически и ловит <code>StopIteration</code> чтобы остановиться.</p>
+    <p><strong>Generator</strong> — функция с <code>yield</code> вместо <code>return</code>. При вызове возвращает iterator, не выполняясь. Каждый <code>next()</code> выполняет код до следующего <code>yield</code>.</p>
+    <p><strong><code>yield</code></strong> — ключевое слово, которое «отдаёт» значение вызывающему коду и <strong>замораживает</strong> функцию в текущем состоянии. При следующем вызове <code>next()</code> выполнение продолжается ровно с того места, где остановилось. В отличие от <code>return</code>, который завершает функцию навсегда, <code>yield</code> позволяет функции выдавать значения по одному.</p>
+    <pre>def counter(n):
+    i = 0
+    while i &lt; n:
+        yield i      # отдаёт i и замирает
+        i += 1       # продолжит отсюда при next()
+
+gen = counter(3)
+print(next(gen))     # 0
+print(next(gen))     # 1
+print(next(gen))     # 2
+print(next(gen))     # StopIteration!</pre>
+    <pre>def read_huge_file(path):
+    with open(path) as f:
+        for line in f:
+            yield line.strip()  # в памяти одна строка, не весь файл</pre>
+    <p><strong>Lazy evaluation</strong> — вычисляем значения только когда они нужны, а не все сразу.</p>
+    <p><strong>Когда генераторы дают выигрыш:</strong></p>
+    <ul>
+      <li>Обработка больших файлов / потоков данных (не грузим всё в RAM)</li>
+      <li>Пайплайны трансформаций (цепочка генераторов = потоковая обработка)</li>
+      <li>Бесконечные последовательности (IDs, пагинация)</li>
+      <li>ETL-процессы где данные не помещаются в память</li>
+    </ul>
+  </div>
+  <div class="col en">
+    <h3>Iterators and Generators</h3>
+    <p><strong>Iterator</strong> — an object with a <code>__next__()</code> method. Lazily yields elements one by one. Every <code>for</code> loop in Python works through iterators.</p>
+    <p><strong><code>__next__()</code></strong> — a method that returns the next element from the iterator. When elements run out — it raises a <code>StopIteration</code> exception. A <code>for</code> loop calls this method automatically and catches <code>StopIteration</code> to stop.</p>
+    <p><strong>Generator</strong> — a function with <code>yield</code> instead of <code>return</code>. When called, it returns an iterator without executing. Each <code>next()</code> runs the code up to the next <code>yield</code>.</p>
+    <p><strong><code>yield</code></strong> — a keyword that "hands off" a value to the caller and <strong>freezes</strong> the function in its current state. On the next <code>next()</code> call, execution resumes exactly where it left off. Unlike <code>return</code>, which terminates the function for good, <code>yield</code> lets the function produce values one at a time.</p>
+    <pre>def counter(n):
+    i = 0
+    while i &lt; n:
+        yield i      # hands off i and freezes
+        i += 1       # resumes here on next()
+
+gen = counter(3)
+print(next(gen))     # 0
+print(next(gen))     # 1
+print(next(gen))     # 2
+print(next(gen))     # StopIteration!</pre>
+    <pre>def read_huge_file(path):
+    with open(path) as f:
+        for line in f:
+            yield line.strip()  # one line in memory, not the whole file</pre>
+    <p><strong>Lazy evaluation</strong> — compute values only when they are needed, not all at once.</p>
+    <p><strong>When generators give an advantage:</strong></p>
+    <ul>
+      <li>Processing large files / data streams (don't load everything into RAM)</li>
+      <li>Transformation pipelines (chain of generators = stream processing)</li>
+      <li>Infinite sequences (IDs, pagination)</li>
+      <li>ETL processes where data doesn't fit in memory</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 5. КОММУНИКАЦИЯ МЕЖДУ СЕРВИСАМИ ===== -->
+
+<div class="divider"><hr></div>
+<div class="section-title"><h2><span class="num">05</span> Коммуникация между сервисами / Service Communication</h2></div>
+
+<!-- Sync vs Async -->
+<div class="row">
+  <div class="col ru">
+    <h3>Sync vs Async</h3>
+    <div class="table-wrap"><table>
+      <tr><th>Синхронная (запрос-ответ)</th><th>Асинхронная (очереди)</th></tr>
+      <tr><td>REST/gRPC — вызвал, ждёшь ответ</td><td>RabbitMQ, Kafka, SQS — отправил сообщение, не ждёшь</td></tr>
+      <tr><td>Когда нужен <strong>немедленный ответ</strong></td><td>Когда ответ <strong>не нужен сразу</strong></td></tr>
+      <tr><td>Простая отладка, но <strong>tight coupling</strong></td><td>Loose coupling, но сложнее дебажить</td></tr>
+    </table></div>
+    <p><strong>Когда что:</strong></p>
+    <ul>
+      <li><strong>REST API</strong> — CRUD, получение данных для отображения, синхронные операции. Пользователь ждёт ответ.</li>
+      <li><strong>Message queue</strong> — тяжёлые задачи (отправка email, генерация отчётов, обработка изображений), event-driven архитектура, когда сервис-потребитель может быть временно недоступен.</li>
+    </ul>
+    <p><strong>Пример из практики:</strong> На дашборде аналитики пользователь запрашивает отчёт по продажам за квартал — это REST, синхронно, потому что ему нужны данные прямо сейчас на экране. Но когда он нажимает «Экспорт в Excel» для 500k строк — мы кидаем задачу в очередь (Celery + Redis). Пользователь сразу видит «Отчёт формируется», а воркер в фоне генерирует файл и шлёт уведомление когда готово. Если бы мы делали экспорт синхронно — 30-секундный запрос убил бы и UX, и мог словить таймаут на nginx.</p>
+    <p><strong>Правило:</strong> если ответ нужен на экран → sync. Если операция тяжёлая и пользователь может подождать отдельно → async.</p>
+  </div>
+  <div class="col en">
+    <h3>Sync vs Async</h3>
+    <div class="table-wrap"><table>
+      <tr><th>Synchronous (request-response)</th><th>Asynchronous (queues)</th></tr>
+      <tr><td>REST/gRPC — call and wait for a response</td><td>RabbitMQ, Kafka, SQS — send a message, don't wait</td></tr>
+      <tr><td>When an <strong>immediate response</strong> is needed</td><td>When the response <strong>isn't needed right away</strong></td></tr>
+      <tr><td>Easy to debug, but <strong>tight coupling</strong></td><td>Loose coupling, but harder to debug</td></tr>
+    </table></div>
+    <p><strong>When to use what:</strong></p>
+    <ul>
+      <li><strong>REST API</strong> — CRUD, fetching data for display, synchronous operations. The user waits for a response.</li>
+      <li><strong>Message queue</strong> — heavy tasks (sending email, report generation, image processing), event-driven architecture, when the consumer service may be temporarily unavailable.</li>
+    </ul>
+    <p><strong>From practice:</strong> On an analytics dashboard, a user requests a quarterly sales report — that's REST, synchronous, because they need the data on screen right now. But when they click "Export to Excel" for 500k rows — we push the task to a queue (Celery + Redis). The user immediately sees "Report is being generated", while a worker builds the file in the background and sends a notification when it's ready. If we did the export synchronously — a 30-second request would kill both UX and risk an nginx timeout.</p>
+    <p><strong>Rule:</strong> if the response is needed on screen → sync. If the operation is heavy and the user can wait separately → async.</p>
+  </div>
+</div>
+
+<!-- ===== 6. ДИЗАЙН БД ===== -->
+
+<div class="divider"><hr></div>
+<div class="section-title"><h2><span class="num">06</span> Дизайн БД / Database Design</h2></div>
+
+<!-- Нормализация — определение -->
+<div class="row">
+  <div class="col ru">
+    <h3>Нормализация</h3>
+    <p><strong>Нормализация</strong> — процесс организации данных в БД таким образом, чтобы устранить избыточность (дублирование) и аномалии при вставке, обновлении и удалении данных. Суть: разбиваем одну большую таблицу на несколько связанных, где каждый факт хранится ровно один раз.</p>
+    <p>Цель — <strong>целостность данных</strong>. Если имя отдела хранится в одном месте (таблица <code>departments</code>), а не в каждой строке <code>employees</code> — переименование отдела = одна операция, а не обновление тысяч строк с риском рассинхрона.</p>
+  </div>
+  <div class="col en">
+    <h3>Normalization</h3>
+    <p><strong>Normalization</strong> — the process of organizing data in a database to eliminate redundancy (duplication) and anomalies during inserts, updates, and deletes. The idea: split one large table into several related ones, where each fact is stored exactly once.</p>
+    <p>The goal is <strong>data integrity</strong>. If a department name is stored in one place (the <code>departments</code> table) rather than in every row of <code>employees</code> — renaming a department is a single operation, not updating thousands of rows with a risk of going out of sync.</p>
+  </div>
+</div>
+
+<!-- Нормализация — уровни -->
+<div class="row">
+  <div class="col ru">
+    <h3>Нормализация — уровни</h3>
+    <p>Каждая следующая нормальная форма включает все предыдущие.</p>
+    <p><strong>1NF — Атомарность</strong><br>
+    Каждая ячейка содержит одно значение, нет повторяющихся групп.<br>
+    <span class="bad">❌</span> <code>phones: "+380..., +380..."</code> — массив в одной ячейке<br>
+    <span class="good">✅</span> Отдельная таблица <code>user_phones</code> с одной строкой на номер.</p>
+    <p><strong>2NF — Нет частичных зависимостей</strong><br>
+    Каждый неключевой атрибут зависит от <strong>всего</strong> составного ключа, а не от его части.<br>
+    Таблица <code>order_items (order_id, product_id, product_name, quantity)</code>:<br>
+    <span class="bad">❌</span> <code>product_name</code> зависит только от <code>product_id</code>, а не от пары <code>(order_id, product_id)</code><br>
+    <span class="good">✅</span> Выносим <code>product_name</code> в таблицу <code>products</code>. В <code>order_items</code> оставляем только FK.</p>
+    <p><strong>3NF — Нет транзитивных зависимостей</strong><br>
+    Неключевой атрибут не зависит от другого неключевого атрибута.<br>
+    Таблица <code>employees (id, department_id, department_name)</code>:<br>
+    <span class="bad">❌</span> <code>department_name</code> зависит от <code>department_id</code>, а не от <code>id</code> напрямую — транзитивная зависимость.<br>
+    <span class="good">✅</span> Выносим <code>department_name</code> в таблицу <code>departments</code>.</p>
+    <p><strong>BCNF (Бойса-Кодда)</strong> — ужесточение 3NF: каждый детерминант — кандидат в ключи. На практике редко отличается от 3NF, нужна только при нескольких перекрывающихся составных ключах.</p>
+    <p><strong>4NF</strong> — нет многозначных зависимостей. Если сущность имеет два независимых набора связей (работник → навыки, работник → языки), они разносятся в отдельные таблицы. Иначе получаем комбинаторный взрыв строк.</p>
+    <p><strong>На практике:</strong> доводим до 3NF — это стандарт для OLTP. Дальше (BCNF, 4NF) — только если видим конкретную аномалию. Потом точечно денормализуем под нагрузку.</p>
+  </div>
+  <div class="col en">
+    <h3>Normalization — levels</h3>
+    <p>Each successive normal form includes all the previous ones.</p>
+    <p><strong>1NF — Atomicity</strong><br>
+    Each cell contains a single value, no repeating groups.<br>
+    <span class="bad">❌</span> <code>phones: "+380..., +380..."</code> — an array in a single cell<br>
+    <span class="good">✅</span> A separate <code>user_phones</code> table with one row per number.</p>
+    <p><strong>2NF — No partial dependencies</strong><br>
+    Every non-key attribute depends on the <strong>entire</strong> composite key, not just part of it.<br>
+    Table <code>order_items (order_id, product_id, product_name, quantity)</code>:<br>
+    <span class="bad">❌</span> <code>product_name</code> depends only on <code>product_id</code>, not on the pair <code>(order_id, product_id)</code><br>
+    <span class="good">✅</span> Move <code>product_name</code> to the <code>products</code> table. Keep only the FK in <code>order_items</code>.</p>
+    <p><strong>3NF — No transitive dependencies</strong><br>
+    A non-key attribute does not depend on another non-key attribute.<br>
+    Table <code>employees (id, department_id, department_name)</code>:<br>
+    <span class="bad">❌</span> <code>department_name</code> depends on <code>department_id</code>, not directly on <code>id</code> — a transitive dependency.<br>
+    <span class="good">✅</span> Move <code>department_name</code> to a <code>departments</code> table.</p>
+    <p><strong>BCNF (Boyce-Codd)</strong> — a stricter version of 3NF: every determinant is a candidate key. In practice it rarely differs from 3NF, only needed with several overlapping composite keys.</p>
+    <p><strong>4NF</strong> — no multi-valued dependencies. If an entity has two independent sets of relationships (employee → skills, employee → languages), they are split into separate tables. Otherwise you get a combinatorial explosion of rows.</p>
+    <p><strong>In practice:</strong> normalize to 3NF — the OLTP standard. Beyond that (BCNF, 4NF) — only if you see a specific anomaly. Then selectively denormalize under load.</p>
+  </div>
+</div>
+
+<!-- Денормализация -->
+<div class="row">
+  <div class="col ru">
+    <h3>Денормализация</h3>
+    <p>Намеренно дублируем данные для скорости чтения.</p>
+    <ul>
+      <li>Плюсы: быстрые запросы без JOIN, проще агрегации</li>
+      <li>Минусы: дублирование, риск рассинхрона, сложнее обновлять</li>
+      <li>Типичные приёмы: добавить <code>order_total</code> в таблицу заказов (вместо <code>SUM</code> по items), хранить <code>user_name</code> рядом с комментарием, materialized views</li>
+    </ul>
+    <p><strong>Когда что:</strong> OLTP (транзакции) → нормализация. OLAP (аналитика, дашборды) → денормализация. На практике — гибрид.</p>
+  </div>
+  <div class="col en">
+    <h3>Denormalization</h3>
+    <p>Intentionally duplicate data for read speed.</p>
+    <ul>
+      <li>Pros: fast queries without JOINs, simpler aggregations</li>
+      <li>Cons: duplication, risk of data going out of sync, harder to update</li>
+      <li>Common techniques: add <code>order_total</code> to the orders table (instead of <code>SUM</code> over items), store <code>user_name</code> alongside a comment, materialized views</li>
+    </ul>
+    <p><strong>When to use what:</strong> OLTP (transactions) → normalization. OLAP (analytics, dashboards) → denormalization. In practice — a hybrid.</p>
+  </div>
+</div>
+
+<!-- Связи -->
+<div class="row">
+  <div class="col ru">
+    <h3>Связи</h3>
+    <ul>
+      <li><strong>1:1</strong> — user ↔ profile (редко, обычно для разделения горячих/холодных данных)</li>
+      <li><strong>1:N</strong> — user → orders (FK в таблице orders)</li>
+      <li><strong>M:N</strong> — products ↔ categories (через junction table <code>product_categories</code>)</li>
+    </ul>
+  </div>
+  <div class="col en">
+    <h3>Relationships</h3>
+    <ul>
+      <li><strong>1:1</strong> — user ↔ profile (rare, usually for separating hot/cold data)</li>
+      <li><strong>1:N</strong> — user → orders (FK in the orders table)</li>
+      <li><strong>M:N</strong> — products ↔ categories (via a junction table <code>product_categories</code>)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Проектирование — подход -->
+<div class="row">
+  <div class="col ru">
+    <h3>Проектирование — подход</h3>
+    <ol>
+      <li>Определить сущности и их атрибуты</li>
+      <li>Определить связи и кардинальность</li>
+      <li>Нормализовать до 3NF</li>
+      <li>Денормализовать точечно под нагрузку (по результатам профилирования, не заранее)</li>
+      <li>Индексы — на поля WHERE, JOIN, ORDER BY</li>
+    </ol>
+  </div>
+  <div class="col en">
+    <h3>Design approach</h3>
+    <ol>
+      <li>Identify entities and their attributes</li>
+      <li>Define relationships and cardinality</li>
+      <li>Normalize to 3NF</li>
+      <li>Denormalize selectively under load (based on profiling results, not upfront)</li>
+      <li>Indexes — on WHERE, JOIN, ORDER BY fields</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="tip">
+    <strong>Ключевое правило интервью:</strong> после каждого ответа добавляй «в контексте проекта я это применял когда...» — это отличает синьора от теоретика.<br><br>
+    <strong>Key interview rule:</strong> after each answer, add "in my project I applied this when…" — this is what separates a senior from a textbook reciter.
+  </div>
+</div>
+
+</body>
+</html>
